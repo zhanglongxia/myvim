@@ -21,9 +21,11 @@ set nocindent       "它会按照 C 语言的语法，自动地调整缩进的�
 
 syntax enable       "打开语法高亮
 set syntax=on       "允许用指定语法高亮配色方案替换默认方案
-let g:solarized_termcolors=256
 set background=dark "使用黑色背景
-"colorscheme solarized
+colorscheme solarized
+let g:solarized_termcolors=256
+
+set backspace=indent,eol,start
 
 "根据文件后缀来选择对应的快捷字颜色配置文件
 augroup filetypedetect 
@@ -100,7 +102,10 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 " <1> 光标移动到待复制复单词处，
 " <2> 进入命令行模式
 " <3> Ctrl+r
-" <4> Ctrl +w
+" <4> Ctrl+w
+"
+" 均分面板:
+"     Ctrl + w, =
 "
 " 文本对象:
 " v, p, y, d 分别为: 选中, 粘贴, 复制, 删除
@@ -154,29 +159,63 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 " <2> git clone git://github.com/altercation/solarized.git 下载solarized配色
 " <3> 双击solarized/iterm2-colors-solarized/Solarized Dark.itermcolors 自动将配色导入到iTerm2
 " <4> iTerm2->Preferences->Profiles->Color->Color Presets 中选择Solarized Dark
+" <4> iTerm2->Preferences->Profiles->Color->Minium Contrast 设置成最小值
 " <5> iTerm2->Preferences->Profiles->Color->Megenta/Bright颜色值改成f12020与linux保持一致
 " <6> iTerm2->Preferences->Profiles->Text中取消Draw bold text in bright color
-" <7> mkdir -p ~/.vim/colors  // 设置vim配色
-" <8> cp ./repos/solarized/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/
-" <9> vi ~/.vimrc   // 添加下面的内容设置 Solarized 配色：
+" <7> iTerm2->Preferences->Keys 中将Previous Tab和Next Tab的快捷键改成Ctrl+PgUp和Ctrl+PgDn 与linux保持一致
+" <8> mkdir -p ~/.vim/colors  // 设置vim配色
+" <9> cp ./repos/solarized/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/
+" <10> vi ~/.vimrc   // 添加下面的内容设置 Solarized 配色：
 "   set syntax=on
 "   set background=dark
 "   colorscheme solarized
 "
-" <10> vi ~/.bash_profile  // 设置ls命令显示颜色
+" <11> vi ~/.bash_profile  // 设置ls命令显示颜色
 "   export CLICOLOR=1
 "
+" <12> vi ~/.inputrc  // 使用PageUp/PageDown历史自动补全功能,快捷键与linux保持一致
+"	#"\e[A": history-search-backward  // Fn + UpArray     MAC 键盘
+"	#"\e[B": history-search-forward   // Fn + DownArray   MAC 键盘
+"	"\e[5~": history-search-backward  // PageUp           MAC 外接键盘
+"	"\e[6~": history-search-forward   // PageDown         MAC 外接键盘
+"	set show-all-if-ambiguous on
+"	set completion-ignore-case on
 
 "-------------------Linux 环境设置-------------------------------------------
-" <1> View -> Preferences -> Unnamed -> Colors -> Build-in schemes -> Solarized dark  //设置terminal 配色
-" 
+" <1> 设置terminal 配色
+"   View -> Preferences -> Unnamed -> Colors -> Build-in schemes -> Solarized dark
+"   View -> Preferences -> Unnamed -> Colors -> Palette -> Build-in schemes -> Solarized
+"
 " <2> vi ~/.vimrc   // 添加下面的内容设置 Solarized 配色：
+"   syntax enable
 "   set syntax=on
-"   let g:solarized_termcolors=256
+"   colorscheme solarized
 "   set background=dark
+"   let g:solarized_termcolors=256
+"
+" <3> vim ./.tmux.conf
+"   unbind C-b
+"   set -g prefix C-q
+"   set -g mouse on
+"   set -g default-terminal "xterm-256color"
+"   set-option -ga terminal-overrides ",xterm-256color:Tc"
+"
+" <4> Install cscope and ctags:
+"   sudo apt-get install cscope
+"   sudo apt-get install ctags
+"
+" <5> Install YouCompleteMe:
+"   sudo apt-get install cmake
+"   sudo apt-get install clang
+"   cd ~/.vim/plugged
+"   git clone git@github.com:ycm-core/YouCompleteMe.git
+"   git submodule update --init --recursive
+"   cd ~/.vim/plugged/YouCompleteMe
+"   ./install.py --clang-completer
+"
 
 "-------------------linux 快捷键-------------------------------------------
-" 1. 使用命令行复制：
+" 1. 使用命令行复制(该方法在SSH中不适用)：
 " 在linux的bashrc文件中添加：
 " alias "xc=xclip -selection clipboard"
 "
@@ -193,7 +232,7 @@ set clipboard=unnamedplus
 " 在MAC中使用tmux的时候，建议使用iterm2,它可以支持用鼠标复制粘贴。
 "
 " linux中的tmux的粘贴复制:
-" Shift + 鼠标选中
+" Shift + 鼠标选中 或者 Command + 鼠标选中
 " Ctrl + Shift + c copy
 " Ctrl + Shift + v paste 
 "
@@ -207,6 +246,9 @@ set clipboard=unnamedplus
 " 将下面三句加入~/.tmux.conf中将快捷键Ctrl-b更改成Ctrl-q：
 " unbind C-b
 " set -g prefix C-q
+" set -g mouse on
+" set -g default-terminal "xterm-256color"
+" set-option -ga terminal-overrides ",xterm-256color:Tc"
 " bind R source-file ~/.tmux.conf ; display-message "Config reloaded.."
 " 
 " 更改完配置文件之后按下Ctrl-b r 重新加载配置文件
@@ -254,7 +296,7 @@ set clipboard=unnamedplus
 " Ctrl+b ,     : 窗口重命名。
 
 "打开鼠标支持, 先进入命令模式，然后输入：
-"   set-option mouse on
+" : set -g mouse on
 "------------------------------------------------------------------------------
 
 "-------------------docker-----------------------------------------------------
@@ -364,12 +406,12 @@ Plug 'https://github.com/vim-scripts/minibufexpl.vim'
 Plug 'https://github.com/vim-scripts/cscope.vim'
 Plug 'https://github.com/vim-scripts/autoload_cscope.vim'
 Plug 'https://github.com/vim-scripts/taglist.vim'
+Plug 'https://github.com/Yggdroot/indentLine'
 Plug 'b4n/ctags'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mhinz/vim-signify'
 Plug 'Yggdroot/LeaderF'
-Plug 'http://www.github.com/Yggdroot/indentLine'
-"Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-fugitive'
 Plug 'codable/diffreview'
 Plug 'rhysd/vim-clang-format'
@@ -477,7 +519,7 @@ let g:autocscope_menus=0
 "------------------------------------------------------------------------------
 
 
-"-------------------quickfix--------------------------------------------
+"-------------------quickfix---------------------------------------------------
 " quickfix 是vim的一个标准插件,不需要安装。Quickfix提供一个窗口,输出可供选择的结果。
 
 " :cw   打开quickfix窗口
@@ -489,10 +531,25 @@ let g:autocscope_menus=0
 "
 " Ctrl + p  切换到上一个结果
 " Ctrl + n  切换到下一个结果
+" Ctrl + e  关闭quickfix窗口
 nmap <C-p> :cp<CR> 
 nmap <C-n> :cn<CR>
+nmap <C-e> :ccl<CR>
 "------------------------------------------------------------------------------
 
+"-------------------ack.vim----------------------------------------------------
+" ack.vim用在在代码中搜索指定的匹配字符串，与grep的区别是，ack.vim在搜索之后会自动跳出Quickfix
+" 窗口，不需要手工的打开QuickFix窗口
+"
+" 安装：
+"     sudo apt-get install ack-grep
+" 用PlugIn安装插件：
+"     Plugin 'mileszs/ack.vim
+" 用法:
+"     Ack [options] {pattern} [{directories}]
+"     Ack -nr list_append ./
+"     Ack -nr list_append *.c
+"------------------------------------------------------------------------------
 
 "-------------------taglist---------------------------------------------------
 "taglist的主要作用是显示当前文件中的变量和函数
@@ -512,12 +569,12 @@ let Tlist_WinWidth = 40         "设置taglist的宽度
 "------------------------------------------------------------------------------
 
 "-------------------clang-format-----------------------------------------------
-let g:clang_format#command='clang-format-6.0'
+let g:clang_format#command='clang-format-14'
 let g:clang_format#detect_style_file=1
 let g:clang_format#enable_fallback_style=0
 "let g:clang_format#auto_format=1
 let g:clang_format#auto_format=0
-let g:clang_format#command='clang-format-6.0'
+let g:clang_format#command='clang-format-14'
 let g:clang_format#enable_fallback_style=0
 
 "let g:clang_format#auto_format=0  // 临时关闭clang_format
@@ -667,9 +724,9 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Bundle 'Valloric/YouCompleteMe'
+"Plugin 'VundleVim/Vundle.vim'
+Plugin 'mileszs/ack.vim'
+"Bundle 'Valloric/YouCompleteMe'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -702,9 +759,13 @@ filetype plugin indent on    " required
 "
 "(3) 利用plug将YouCompleteMe的代码下载下来
 "   Plug 'Valloric/YouCompleteMe'
+"   或者直接从github上面下载YCM的代码
+"   cd ~/.vim/plugged
+"   git clone git@github.com:ycm-core/YouCompleteMe.git
+"   git submodule update --init --recursive
 "
 "(4) 编译YouCompleteMe
-" $ cd ~/.vim/plugged/YouCompleteMe
+" $ cd ~/.vim/bundle/YouCompleteMe
 " $./install.py --clang-completer
 "
 " (5) YCM安装完毕之后还不能代码补全，需要配置.ycm_extra_conf.py.可以直接使用YCM自带的.ycm_extra_conf.py文件.
@@ -746,3 +807,28 @@ let g:ycm_enable_diagnostic_highlighting = 0
 "[q               切换到上一个文件
 "cw               退出Greview模式
 "------------------------------------------------------------------------------
+
+set errorformat+=%f:%l:%m
+
+" Note that this function will lint the current SAVED version of the file.
+function! s:GCppLint()
+  " For some reason, I have to put this suffix into a variable, rather than
+  " including it right in the system() call.
+  let mysuffix = ' 2>&1 | egrep :.*:'
+  cexpr system('cpplint.py ' . expand('%') . mysuffix)
+endfunction
+au BufNewFile,BufRead *.cc command! Lint :call s:GCppLint()
+au BufNewFile,BufRead *.h command! Lint :call s:GCppLint()
+
+" Note that this function will lint the current SAVED version of the file.
+function! s:GPyLint()
+  let mysuffix = ' 2>&1 | egrep :.*:'
+  let a:lint = 'gpylint '
+      \. '--output-format=parseable --include-ids=y'
+  cexpr system(a:lint . ' ' . expand('%') . mysuffix)
+endfunction
+au FileType python command! Lint :call s:GPyLint()
+
+" Convenient keybinding for linting the current file.
+map <C-l> :Lint
+
