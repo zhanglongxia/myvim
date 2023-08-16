@@ -156,30 +156,37 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 "-------------------MAC 环境设置-------------------------------------------
 " <1> https://www.iterm2.com/ 下载iterm2，将其设置为默认console
-" <2> git clone git://github.com/altercation/solarized.git 下载solarized配色
+" <2> git clone git@github.com:altercation/solarized.git --depth=1 下载solarized配色
 " <3> 双击solarized/iterm2-colors-solarized/Solarized Dark.itermcolors 自动将配色导入到iTerm2
-" <4> iTerm2->Preferences->Profiles->Color->Color Presets 中选择Solarized Dark
-" <4> iTerm2->Preferences->Profiles->Color->Minium Contrast 设置成最小值
-" <5> iTerm2->Preferences->Profiles->Color->Megenta/Bright颜色值改成f12020与linux保持一致
-" <6> iTerm2->Preferences->Profiles->Text中取消Draw bold text in bright color
-" <7> iTerm2->Preferences->Keys 中将Previous Tab和Next Tab的快捷键改成Ctrl+PgUp和Ctrl+PgDn 与linux保持一致
-" <8> mkdir -p ~/.vim/colors  // 设置vim配色
-" <9> cp ./repos/solarized/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/
-" <10> vi ~/.vimrc   // 添加下面的内容设置 Solarized 配色：
+" <4> iTerm2->Settings->Preferences->Profiles->Color->Color Presets 中选择Solarized Dark
+" <5> iTerm2->Settings->Preferences->Profiles->Color->Minium Contrast 设置成最小值
+" <6> iTerm2->Settings->Preferences->Profiles->Color->Megenta中Bright颜色值改成6c71c4, Normal改成d33682 与linux保持一致
+" <7> iTerm2->Settings->Preferences->Profiles->Text->Font Size 改成15
+" <8> iTerm2->Settings->Preferences->Profiles->Text中取消Draw bold text in bright color
+" <9> iTerm2->Settings->Preferences->Keys 中将Previous Tab和Next Tab的快捷键改成Ctrl+PgUp和Ctrl+PgDn 与linux保持一致
+" <10> mkdir -p ~/.vim/colors  // 设置vim配色
+" <11> cp ./repos/solarized/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/
+" <12> vi ~/.vimrc   // 添加下面的内容设置 Solarized 配色：
 "   set syntax=on
 "   set background=dark
 "   colorscheme solarized
 "
-" <11> vi ~/.bash_profile  // 设置ls命令显示颜色
+" <13> vi ~/.bash_profile  // 设置ls命令显示颜色
 "   export CLICOLOR=1
 "
-" <12> vi ~/.inputrc  // 使用PageUp/PageDown历史自动补全功能,快捷键与linux保持一致
+" <14> vi ~/.inputrc  // 使用PageUp/PageDown历史自动补全功能,快捷键与linux保持一致
 "	#"\e[A": history-search-backward  // Fn + UpArray     MAC 键盘
 "	#"\e[B": history-search-forward   // Fn + DownArray   MAC 键盘
 "	"\e[5~": history-search-backward  // PageUp           MAC 外接键盘
 "	"\e[6~": history-search-forward   // PageDown         MAC 外接键盘
 "	set show-all-if-ambiguous on
 "	set completion-ignore-case on
+"
+" <15> Apple->System Settings->Mouse: Tracking Speed: fast, Natural scrolling: false
+"
+" <16> Apple->System Settings-> Search `Function Keys` -> Double click `Function keys`
+"      -> Click `Spotlight` -> Change keys to `command+U` and `command+I`.然后就可以使用Ctrl+Space切换输入法
+"
 
 "-------------------Linux 环境设置-------------------------------------------
 " <1> 设置terminal 配色
@@ -707,38 +714,6 @@ let g:indentLine_char='┆'     "设置代码缩进提示类型
 let g:indentLine_enabled=0    "默认关闭代码缩进提示
 "Shift+l 打开或者关闭缩进对齐显示
 noremap <s-l> :IndentLinesToggle<cr>
-"------------------------------------------------------------------------------
-
-
-"-------------------Vundle-------------------------------------------------
-"Vundle的主要作用是安装和管理vim插件，功能跟plug相同，但是稍微复杂点，推荐使用plug安装管理插件
-"
-"Vundle安装：
-"(1)下载程序
-"$git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-"(2)设置vimrc
-set nocompatible              " required
-filetype off                  " required
-
-"set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" let Vundle manage Vundle, required
-"Plugin 'VundleVim/Vundle.vim'
-Plugin 'mileszs/ack.vim'
-"Bundle 'Valloric/YouCompleteMe'
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-"(3)更新插件
-"重新打开vim，输入PluginInstall，安装所有插件
-
-"vundle用法:
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` toauto-approve removal
 "------------------------------------------------------------------------------
 
 
