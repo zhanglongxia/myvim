@@ -22,21 +22,19 @@ init()
     fi
 }
 
-install_vimrc()
+init_vim()
 {
     mkdir "${VIM_DIR}"
     mkdir "${VIM_DIR}/colors"
     mkdir "${VIM_DIR}/plugged"
     mkdir "${VIM_DIR}/autoload"
     cp  ./linux/vimrc "${VIM_DIR}"
-    ls "${VIM_DIR}"
 }
 
 install_tools()
 {
     sudo apt-get install -y curl cscope cmake clang exuberant-ctags
     curl -fLo "${VIM_DIR}/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    ls "${VIM_DIR}"
 }
 
 install_colors()
@@ -62,7 +60,7 @@ install_ycm()
 main()
 {
     init
-    install_vimrc
+    init_vim
     install_tools
     install_colors
     install_ycm
