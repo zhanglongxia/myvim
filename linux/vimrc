@@ -279,6 +279,8 @@ set clipboard=unnamedplus
 " resize-pane -L 5  // 左移5行
 " resize-pane -R 5  // 右移5行
 "
+" Ctrl-b Option-left :  //左移
+" Ctrl-b Option-right : //右移
 "
 " 快捷键(注意：先按下Ctrl-b 然后松手 最后按下后面的快捷字符)：
 " 3. 面板操作:
@@ -422,6 +424,7 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-fugitive'
 Plug 'codable/diffreview'
 Plug 'rhysd/vim-clang-format'
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " after this plug is installed, run `CocInstall coc-json coc-tsserver` to install coc extensions
 
 "Plug 'w0rp/ale'
 call plug#end()
