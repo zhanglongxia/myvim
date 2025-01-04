@@ -425,6 +425,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'codable/diffreview'
 Plug 'rhysd/vim-clang-format'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " after this plug is installed, run `CocInstall coc-json coc-tsserver` to install coc extensions
+Plug 'mileszs/ack.vim'
 
 "Plug 'w0rp/ale'
 call plug#end()
@@ -551,14 +552,22 @@ nmap <C-e> :ccl<CR>
 " ack.vim用在在代码中搜索指定的匹配字符串，与grep的区别是，ack.vim在搜索之后会自动跳出Quickfix
 " 窗口，不需要手工的打开QuickFix窗口
 "
-" 安装：
+" 安装 ack或者ag：
 "     sudo apt-get install ack-grep
-" 用PlugIn安装插件：
-"     Plugin 'mileszs/ack.vim
+" or
+"     sudo apt-get install silversearcher-ag
+"
+" 用Plug安装插件：
+"     Plug 'mileszs/ack.vim'
 " 用法:
 "     Ack [options] {pattern} [{directories}]
-"     Ack -nr list_append ./
-"     Ack -nr list_append *.c
+"     Ack list_append ./src    # 指定路径中搜索
+"     Ack list_append --cpp    # 只搜索C++文件
+"
+" 如果安装了ag就使用ag搜索
+if executable('ag')
+    let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
 "------------------------------------------------------------------------------
 
 "-------------------taglist---------------------------------------------------
